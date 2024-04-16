@@ -1,5 +1,36 @@
 <?php
 
+var_dump($_GET);
+var_dump (isset($_GET['email']));
+
+$email = $_GET['email'];
+
+if (isset($email)){
+
+  /* check */
+  var_dump($email);
+
+  /* check if mail is correct */
+  /* var_dump(str_contains($email, '@'), str_contains($email,'.'));
+
+  if(str_contains($email, '@') && str_contains($email,'.')){
+    $message = 'ok';
+  } else {
+    $message = 'fail';
+  } */
+
+  $message = checkEmail($email);
+}
+
+function checkEmail($mail){
+  if(str_contains($mail, '@') && str_contains($mail,'.')){
+    return 'success! You are now subscribed.';
+  } else {
+    return "Incorrect email entered, please try again.";
+  }
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -41,6 +72,14 @@
   </header>
 
   <main>
+    <?php if(isset($message)) :  ?>
+
+      <div class="alert alert-primary" role="alert">
+        <strong><?= $message ?></strong> 
+      </div>
+    
+    <?php endif; ?>
+
     <!-- jumbotron -->
     <div class="p-5 mb-4 bg-light rounded-3">
       <div class="container-fluid py-5">
@@ -54,6 +93,7 @@
       </div>
     </div>
 
+    <!-- cards with post -->
     <section class="posts my-5">
       <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
@@ -134,8 +174,9 @@
       </div>
     </section>
 
+    <!-- newsletter template and form -->
     <section class="newsletter bg-secondary text-white py-4">
-      <div class="container">
+      <div class="container d-flex align-items-center justify-content-center">
         <div class="col-6">
           <h3>Newsletter</h3>
           <p>
@@ -146,7 +187,7 @@
         </div>
         
         <form action="" method="get" class="d-flex align-items-center justify-content-center">
-          <div class="">
+          <div class="py-2">
             <label for="email" class="form-label">Email</label>
             <input type="text" class="form-control rounded-0" name="email" id="email" aria-describedby="helpId" placeholder="">
             <small id="emailHelper" class="form-text text-muted">Type your email address</small>
