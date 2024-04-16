@@ -1,5 +1,7 @@
 <?php
 
+include 'functions.php';
+
 var_dump($_GET);
 var_dump (isset($_GET['email']));
 
@@ -20,15 +22,6 @@ if (isset($email)){
   } */
 
   $message = checkEmail($email);
-}
-
-function checkEmail($mail){
-  if(str_contains($mail, '@') && str_contains($mail,'.')){
-    return 'success! You are now subscribed.';
-  } else {
-    return "Incorrect email entered, please try again.";
-  }
-
 }
 
 ?>
@@ -74,8 +67,8 @@ function checkEmail($mail){
   <main>
     <?php if(isset($message)) :  ?>
 
-      <div class="alert alert-primary" role="alert">
-        <strong><?= $message ?></strong> 
+      <div class="alert alert-<?= $message['status']; ?>" role="alert">
+        <strong><?= $message['text'] ?></strong> 
       </div>
     
     <?php endif; ?>
